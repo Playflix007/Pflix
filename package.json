@@ -1,15 +1,7 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.js"
-    }
-  ]
+  "name": "fetch-keys",
+  "version": "1.0.0",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
 }
