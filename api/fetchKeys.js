@@ -10,11 +10,15 @@ export default async function handler(req, res) {
         const response = await fetch('https://babel-in.xyz/babel-b2ef9ad8f0d432962d47009b24dee465/tata/channels');
         
         if (!response.ok) {
-            return res.status(response.status).json({ error: 'Failed to fetch data' });
+            console.error(`Failed to fetch data: ${response.statusText}`);
+            return res.status(response.status).json({ error: 'Failed to fetch data from API' });
         }
 
         // Parse JSON data
         const data = await response.json();
+
+        // Log the response to verify its structure
+        console.log('API Response:', data);
 
         // Extract license keys for the specified channel
         const channelData = data.channels.find(item => item.channelNumber === channel);
@@ -28,6 +32,7 @@ export default async function handler(req, res) {
             licenseKeys: channelData.licenseKeys // Adjust the property name based on actual data structure
         });
     } catch (error) {
+        console.error('Error fetching license keys:', error);
         res.status(500).json({ error: 'Failed to fetch license keys' });
     }
 }
