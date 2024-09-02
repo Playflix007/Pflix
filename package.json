@@ -1,0 +1,12 @@
+{
+  "name": "pflix-six",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "vercel dev",
+    "build": "vercel build"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"  // Include this only if using node-fetch
+  }
+}
