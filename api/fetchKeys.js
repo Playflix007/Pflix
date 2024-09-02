@@ -1,9 +1,6 @@
 export default async function handler(req, res) {
     const { id } = req.query;  // Get the channel ID from the query parameter
 
-    // Log the query parameters to debug
-    console.log('Received query parameters:', req.query);
-
     if (!id) {
         return res.status(400).json({ error: 'Channel ID is required' });
     }
@@ -19,9 +16,7 @@ export default async function handler(req, res) {
 
         // Parse JSON data
         const data = await response.json();
-
-        // Log the response to verify its structure
-        console.log('API Response:', data);
+        console.log('API Response Data:', data);
 
         // Find the specific channel data based on the provided channel ID
         const channelData = data.channels.find(item => item.id === id);  // Adjust 'id' based on actual response
@@ -30,8 +25,11 @@ export default async function handler(req, res) {
             return res.status(404).json({ error: 'Channel not found' });
         }
 
-        // Extract license keys and format them
-        const formattedLicenseKeys = channelData.licenseKeys.map(key => ({
+        // Extract license keys from the channel_key field
+        const { keys, type } = channelData.channel_key;
+
+        // Format the license keys as required
+        const formattedLicenseKeys = keys.map(key => ({
             kty: key.kty,
             k: key.k,
             kid: key.kid
@@ -40,7 +38,7 @@ export default async function handler(req, res) {
         // Return the formatted license keys
         res.status(200).json({
             licenseKeys: formattedLicenseKeys,
-            type: 'temporary' // Include the type field as needed
+            type: type  // Include the type field as needed
         });
     } catch (error) {
         console.error('Error fetching license keys:', error);
