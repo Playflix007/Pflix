@@ -1,8 +1,8 @@
 export default async function handler(req, res) {
-    const { channel } = req.query;  // Get the channel number from the query parameter
+    const { id } = req.query;  // Get the channel ID from the query parameter
 
-    if (!channel) {
-        return res.status(400).json({ error: 'Channel number is required' });
+    if (!id) {
+        return res.status(400).json({ error: 'Channel ID is required' });
     }
 
     try {
@@ -20,8 +20,8 @@ export default async function handler(req, res) {
         // Log the response to verify its structure
         console.log('API Response:', data);
 
-        // Find the specific channel data based on the provided channel number
-        const channelData = data.channels.find(item => item.channelNumber === channel);
+        // Find the specific channel data based on the provided channel ID
+        const channelData = data.channels.find(item => item.id === id);  // Adjust 'id' based on actual response
 
         if (!channelData) {
             return res.status(404).json({ error: 'Channel not found' });
