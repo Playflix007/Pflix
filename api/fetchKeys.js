@@ -20,16 +20,24 @@ export default async function handler(req, res) {
         // Log the response to verify its structure
         console.log('API Response:', data);
 
-        // Extract license keys for the specified channel
+        // Find the specific channel data based on the provided channel number
         const channelData = data.channels.find(item => item.channelNumber === channel);
 
         if (!channelData) {
             return res.status(404).json({ error: 'Channel not found' });
         }
 
-        // Return the license keys for the specified channel
+        // Extract license keys and format them
+        const formattedLicenseKeys = channelData.licenseKeys.map(key => ({
+            kty: key.kty,
+            k: key.k,
+            kid: key.kid
+        }));
+
+        // Return the formatted license keys
         res.status(200).json({
-            licenseKeys: channelData.licenseKeys // Adjust the property name based on actual data structure
+            licenseKeys: formattedLicenseKeys,
+            type: 'temporary' // Include the type field as needed
         });
     } catch (error) {
         console.error('Error fetching license keys:', error);
