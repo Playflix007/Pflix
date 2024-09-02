@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/fetchKeys.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/fetchKeys",
+      "dest": "/api/fetchKeys.js"
+    }
+  ]
+}
