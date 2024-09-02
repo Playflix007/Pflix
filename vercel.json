@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "fetch.php",
-      "use": "@vercel/php"
+      "src": "api/fetchKeys.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/fetchKeys",
-      "dest": "fetch.php"
+      "dest": "api/fetchKeys.js"
     }
   ]
 }
